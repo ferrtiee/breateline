@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Breatheline — Watch your life move</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <h1>Breatheline</h1>
+        <p>Watch your life move.</p>
+      </header>
+
+      <section class="card" id="profileCard">
+        <h2>Профиль</h2>
+        <form id="profileForm" class="profile-form">
+          <label>
+            Дата рождения
+            <input id="birthDate" name="birthDate" type="date" required />
+          </label>
+          <label>
+            Пол (опционально)
+            <select id="gender" name="gender">
+              <option value="">Не указан</option>
+              <option value="female">Женский</option>
+              <option value="male">Мужской</option>
+            </select>
+          </label>
+          <label>
+            Средний пульс (уд/мин)
+            <input id="heartRate" name="heartRate" type="number" min="30" max="220" value="70" required />
+          </label>
+          <label>
+            Частота дыхания (вдохов/мин)
+            <input id="breathRate" name="breathRate" type="number" min="6" max="40" value="16" required />
+          </label>
+          <label>
+            Страна
+            <select id="country" name="country"></select>
+          </label>
+          <button type="submit" class="btn-primary">Сохранить</button>
+        </form>
+      </section>
+
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="dashboard">Life Dashboard</button>
+        <button class="tab-btn" data-tab="progress">Lifetime Progress</button>
+        <button class="tab-btn" data-tab="bio">Biological Metrics</button>
+      </nav>
+
+      <section class="card tab-panel active" id="dashboard">
+        <h2>Life Dashboard</h2>
+        <div class="big-counter" id="liveClock">00:00:00</div>
+        <div class="metrics-grid">
+          <article><span>Прожито дней</span><strong id="daysLived">0</strong></article>
+          <article><span>Прожито часов</span><strong id="hoursLived">0</strong></article>
+          <article><span>Ударов сердца</span><strong id="heartBeats">0</strong></article>
+          <article><span>Вдохов</span><strong id="breaths">0</strong></article>
+          <article><span>Процент жизни</span><strong id="lifePercent">0%</strong></article>
+        </div>
+        <div class="life-line-wrap">
+          <div class="life-line" id="lifeLine"></div>
+        </div>
+      </section>
+
+      <section class="card tab-panel" id="progress">
+        <h2>Lifetime Progress</h2>
+        <p id="countryLifeExpectancy">Средняя продолжительность жизни: —</p>
+        <label>
+          Альтернативный сценарий
+          <select id="scenarioYears">
+            <option value="80">80 лет</option>
+            <option value="90">90 лет</option>
+            <option value="100">100 лет</option>
+          </select>
+        </label>
+        <div class="progress-ring-wrap">
+          <svg viewBox="0 0 120 120" class="progress-ring">
+            <circle class="track" cx="60" cy="60" r="48"></circle>
+            <circle class="value" id="ringValue" cx="60" cy="60" r="48"></circle>
+          </svg>
+          <div>
+            <strong id="yearsLeft">—</strong>
+            <p>лет осталось по сценарию</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card tab-panel" id="bio">
+        <h2>Biological Metrics</h2>
+        <p id="comparisonText">Ваше сердце билось уже 0 раз.</p>
+        <div class="chart-block">
+          <h3>Накопленные удары сердца по годам</h3>
+          <canvas id="heartChart" width="360" height="160"></canvas>
+        </div>
+        <div class="chart-block">
+          <h3>Накопленные вдохи по годам</h3>
+          <canvas id="breathChart" width="360" height="160"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
