@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Breatheline — Watch your life move</title>
+    <style>
+:root {
+  color-scheme: light;
+  --bg: #f8f7ff;
+  --bg2: #f4fbff;
+  --surface: rgba(255, 255, 255, 0.88);
+  --surface-strong: #ffffff;
+  --text: #2e3042;
+  --text-soft: #6e7391;
+  --line: #8bc7ff;
+  --accent: #b3a6ff;
+  --accent-2: #9fe2d8;
+  --border: rgba(126, 144, 196, 0.22);
+  --shadow: 0 14px 30px rgba(160, 170, 210, 0.22);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 10% 0%, #fbe8ff 0%, transparent 38%),
+    radial-gradient(circle at 90% 0%, #e8f6ff 0%, transparent 35%),
+    linear-gradient(165deg, var(--bg) 0%, var(--bg2) 100%);
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 20px 14px 36px;
+  display: grid;
+  gap: 14px;
+}
+
+.app-header {
+  padding: 4px 4px 0;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.1rem;
+  letter-spacing: -0.5px;
+}
+
+.app-header p {
+  margin: 6px 0 0;
+  color: var(--text-soft);
+}
+
+.card {
+  background: linear-gradient(160deg, var(--surface), rgba(255, 255, 255, 0.72));
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+h2,
+h3 {
+  margin: 0 0 10px;
+}
+
+h2 {
+  font-size: 1.1rem;
+}
+
+h3 {
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.profile-form {
+  display: grid;
+  gap: 10px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  color: var(--text);
+  padding: 11px;
+  font-size: 0.95rem;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #9ec1ff;
+  box-shadow: 0 0 0 4px rgba(158, 193, 255, 0.25);
+}
+
+.btn-primary {
+  border: none;
+  color: white;
+  font-weight: 700;
+  background: linear-gradient(95deg, #a7b6ff 0%, #8fdcf3 50%, #a3e5d6 100%);
+  box-shadow: 0 10px 20px rgba(151, 180, 238, 0.35);
+}
+
+.tab-nav {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tab-btn {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--text-soft);
+  padding: 10px 8px;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.tab-btn.active {
+  color: #46507f;
+  border-color: rgba(130, 159, 237, 0.55);
+  background: linear-gradient(120deg, rgba(189, 201, 255, 0.45), rgba(170, 231, 248, 0.45));
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.big-counter {
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  color: #52567a;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.metrics-grid article {
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(169, 184, 230, 0.28);
+  border-radius: 14px;
+  padding: 10px;
+  display: grid;
+  gap: 5px;
+}
+
+.metrics-grid span {
+  color: var(--text-soft);
+  font-size: 0.8rem;
+}
+
+.metrics-grid strong {
+  font-size: 1.02rem;
+  color: #4b4f71;
+}
+
+.life-line-wrap {
+  margin-top: 13px;
+  height: 12px;
+  background: rgba(196, 212, 247, 0.45);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.life-line {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #a6b9ff 0%, #8fd4ff 45%, #a6ecd9 100%);
+  box-shadow: 0 0 16px rgba(148, 200, 255, 0.65);
+  transition: width 0.6s ease;
+}
+
+.progress-ring {
+  width: 126px;
+  height: 126px;
+  transform: rotate(-90deg);
+}
+
+.progress-ring .track,
+.progress-ring .value {
+  fill: none;
+  stroke-width: 8;
+}
+
+.progress-ring .track {
+  stroke: rgba(182, 198, 240, 0.45);
+}
+
+.progress-ring .value {
+  stroke: #8ec5ff;
+  stroke-linecap: round;
+  stroke-dasharray: 302;
+  stroke-dashoffset: 302;
+  transition: stroke-dashoffset 0.6s;
+}
+
+.progress-ring-wrap {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+#countryLifeExpectancy,
+#comparisonText {
+  margin: 0 0 10px;
+  color: var(--text-soft);
+}
+
+#yearsLeft {
+  display: block;
+  font-size: 1.8rem;
+  color: #4f5a8a;
+}
+
+.chart-block {
+  margin-top: 12px;
+}
+
+canvas {
+  width: 100%;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(169, 184, 230, 0.28);
+}
+
+</style>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="app-header">
+        <h1>Breatheline</h1>
+        <p>Watch your life move.</p>
+      </header>
+
+      <section class="card" id="profileCard">
+        <h2>Профиль</h2>
+        <form id="profileForm" class="profile-form">
+          <label>
+            Дата рождения
+            <input id="birthDate" name="birthDate" type="date" required />
+          </label>
+          <label>
+            Пол (опционально)
+            <select id="gender" name="gender">
+              <option value="">Не указан</option>
+              <option value="female">Женский</option>
+              <option value="male">Мужской</option>
+            </select>
+          </label>
+          <label>
+            Средний пульс (уд/мин)
+            <input id="heartRate" name="heartRate" type="number" min="30" max="220" value="70" required />
+          </label>
+          <label>
+            Частота дыхания (вдохов/мин)
+            <input id="breathRate" name="breathRate" type="number" min="6" max="40" value="16" required />
+          </label>
+          <label>
+            Страна
+            <select id="country" name="country"></select>
+          </label>
+          <button type="submit" class="btn-primary">Сохранить</button>
+        </form>
+      </section>
+
+      <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="dashboard">Life Dashboard</button>
+        <button class="tab-btn" data-tab="progress">Lifetime Progress</button>
+        <button class="tab-btn" data-tab="bio">Biological Metrics</button>
+      </nav>
+
+      <section class="card tab-panel active" id="dashboard">
+        <h2>Life Dashboard</h2>
+        <div class="big-counter" id="liveClock">00:00:00</div>
+        <div class="metrics-grid">
+          <article><span>Прожито дней</span><strong id="daysLived">0</strong></article>
+          <article><span>Прожито часов</span><strong id="hoursLived">0</strong></article>
+          <article><span>Ударов сердца</span><strong id="heartBeats">0</strong></article>
+          <article><span>Вдохов</span><strong id="breaths">0</strong></article>
+          <article><span>Процент жизни</span><strong id="lifePercent">0%</strong></article>
+        </div>
+        <div class="life-line-wrap">
+          <div class="life-line" id="lifeLine"></div>
+        </div>
+      </section>
+
+      <section class="card tab-panel" id="progress">
+        <h2>Lifetime Progress</h2>
+        <p id="countryLifeExpectancy">Средняя продолжительность жизни: —</p>
+        <label>
+          Альтернативный сценарий
+          <select id="scenarioYears">
+            <option value="80">80 лет</option>
+            <option value="90">90 лет</option>
+            <option value="100">100 лет</option>
+          </select>
+        </label>
+        <div class="progress-ring-wrap">
+          <svg viewBox="0 0 120 120" class="progress-ring">
+            <circle class="track" cx="60" cy="60" r="48"></circle>
+            <circle class="value" id="ringValue" cx="60" cy="60" r="48"></circle>
+          </svg>
+          <div>
+            <strong id="yearsLeft">—</strong>
+            <p>лет осталось по сценарию</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card tab-panel" id="bio">
+        <h2>Biological Metrics</h2>
+        <p id="comparisonText">Ваше сердце билось уже 0 раз.</p>
+        <div class="chart-block">
+          <h3>Накопленные удары сердца по годам</h3>
+          <canvas id="heartChart" width="360" height="160"></canvas>
+        </div>
+        <div class="chart-block">
+          <h3>Накопленные вдохи по годам</h3>
+          <canvas id="breathChart" width="360" height="160"></canvas>
+        </div>
+      </section>
+    </main>
+
+    <script>
+const countryLifeExpectancy = {
+  "Россия": 72.8,
+  "США": 77.5,
+  "Япония": 84.5,
+  "Германия": 81.1,
+  "Франция": 82.4,
+  "Индия": 67.2,
+  "Бразилия": 75.9,
+  "Казахстан": 71.4,
+  "Украина": 71.6,
+  "Канада": 82.3
+};
+
+const storageKey = "breatheline-profile";
+const ringCircumference = 2 * Math.PI * 48;
+
+const el = {
+  profileForm: document.getElementById("profileForm"),
+  birthDate: document.getElementById("birthDate"),
+  gender: document.getElementById("gender"),
+  heartRate: document.getElementById("heartRate"),
+  breathRate: document.getElementById("breathRate"),
+  country: document.getElementById("country"),
+  scenarioYears: document.getElementById("scenarioYears"),
+  tabButtons: [...document.querySelectorAll(".tab-btn")],
+  tabPanels: [...document.querySelectorAll(".tab-panel")],
+  liveClock: document.getElementById("liveClock"),
+  daysLived: document.getElementById("daysLived"),
+  hoursLived: document.getElementById("hoursLived"),
+  heartBeats: document.getElementById("heartBeats"),
+  breaths: document.getElementById("breaths"),
+  lifePercent: document.getElementById("lifePercent"),
+  lifeLine: document.getElementById("lifeLine"),
+  countryLifeExpectancy: document.getElementById("countryLifeExpectancy"),
+  yearsLeft: document.getElementById("yearsLeft"),
+  ringValue: document.getElementById("ringValue"),
+  comparisonText: document.getElementById("comparisonText"),
+  heartChart: document.getElementById("heartChart"),
+  breathChart: document.getElementById("breathChart")
+};
+
+let profile = {
+  birthDate: "",
+  gender: "",
+  heartRate: 70,
+  breathRate: 16,
+  country: "Россия"
+};
+
+function fillCountryOptions() {
+  Object.keys(countryLifeExpectancy).forEach((country) => {
+    const option = document.createElement("option");
+    option.value = country;
+    option.textContent = country;
+    el.country.appendChild(option);
+  });
+}
+
+function loadProfile() {
+  const saved = localStorage.getItem(storageKey);
+  if (saved) {
+    profile = { ...profile, ...JSON.parse(saved) };
+  }
+  el.birthDate.value = profile.birthDate;
+  el.gender.value = profile.gender;
+  el.heartRate.value = profile.heartRate;
+  el.breathRate.value = profile.breathRate;
+  el.country.value = profile.country;
+}
+
+function saveProfile() {
+  profile = {
+    birthDate: el.birthDate.value,
+    gender: el.gender.value,
+    heartRate: Number(el.heartRate.value) || 70,
+    breathRate: Number(el.breathRate.value) || 16,
+    country: el.country.value
+  };
+  localStorage.setItem(storageKey, JSON.stringify(profile));
+}
+
+function getLifeExpectancyYears() {
+  return countryLifeExpectancy[profile.country] || 75;
+}
+
+function formatNum(num) {
+  return new Intl.NumberFormat("ru-RU").format(Math.floor(num));
+}
+
+function computeStats() {
+  if (!profile.birthDate) {
+    return null;
+  }
+  const now = new Date();
+  const birth = new Date(profile.birthDate);
+
+  if (Number.isNaN(birth.getTime()) || birth > now) {
+    return null;
+  }
+
+  const msLived = now - birth;
+  const secLived = msLived / 1000;
+  const minLived = secLived / 60;
+  const hoursLived = minLived / 60;
+  const daysLived = hoursLived / 24;
+
+  const heartBeats = minLived * profile.heartRate;
+  const breaths = minLived * profile.breathRate;
+
+  const lifeExpectancyDays = getLifeExpectancyYears() * 365.25;
+  const lifePercent = Math.min(100, (daysLived / lifeExpectancyDays) * 100);
+
+  return { secLived, minLived, hoursLived, daysLived, heartBeats, breaths, lifePercent };
+}
+
+function updateDashboard(stats) {
+  const totalSeconds = Math.floor(stats.secLived);
+  const hh = String(Math.floor((totalSeconds / 3600) % 24)).padStart(2, "0");
+  const mm = String(Math.floor((totalSeconds / 60) % 60)).padStart(2, "0");
+  const ss = String(totalSeconds % 60).padStart(2, "0");
+
+  el.liveClock.textContent = `${hh}:${mm}:${ss}`;
+  el.daysLived.textContent = formatNum(stats.daysLived);
+  el.hoursLived.textContent = formatNum(stats.hoursLived);
+  el.heartBeats.textContent = formatNum(stats.heartBeats);
+  el.breaths.textContent = formatNum(stats.breaths);
+  el.lifePercent.textContent = `${stats.lifePercent.toFixed(2)}%`;
+  el.lifeLine.style.width = `${stats.lifePercent}%`;
+}
+
+function updateProgress(stats) {
+  const expectancy = getLifeExpectancyYears();
+  el.countryLifeExpectancy.textContent = `Средняя продолжительность жизни в стране: ${expectancy.toFixed(1)} лет`;
+
+  const scenario = Number(el.scenarioYears.value);
+  const yearsLived = stats.daysLived / 365.25;
+  const yearsLeft = Math.max(0, scenario - yearsLived);
+  el.yearsLeft.textContent = yearsLeft.toFixed(1);
+
+  const progress = Math.min(100, (yearsLived / scenario) * 100);
+  const offset = ringCircumference - (ringCircumference * progress) / 100;
+  el.ringValue.style.strokeDasharray = ringCircumference;
+  el.ringValue.style.strokeDashoffset = offset;
+}
+
+function drawLineChart(canvas, points, color) {
+  const ctx = canvas.getContext("2d");
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const padding = 14;
+  const max = Math.max(...points, 1);
+
+  ctx.strokeStyle = "rgba(255,255,255,0.15)";
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 4; i += 1) {
+    const y = padding + ((h - padding * 2) * i) / 3;
+    ctx.beginPath();
+    ctx.moveTo(padding, y);
+    ctx.lineTo(w - padding, y);
+    ctx.stroke();
+  }
+
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+
+  points.forEach((val, idx) => {
+    const x = padding + ((w - padding * 2) * idx) / (points.length - 1 || 1);
+    const y = h - padding - ((h - padding * 2) * val) / max;
+    if (idx === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+
+  ctx.stroke();
+}
+
+function updateBio(stats) {
+  const millions = (stats.heartBeats / 1_000_000).toFixed(2);
+  el.comparisonText.textContent = `Ваше сердце билось уже ${millions} млн раз.`;
+
+  const years = Math.max(1, Math.floor(stats.daysLived / 365.25));
+  const perYearMinutes = 365.25 * 24 * 60;
+
+  const heartSeries = [];
+  const breathSeries = [];
+  for (let year = 1; year <= years; year += 1) {
+    heartSeries.push(perYearMinutes * profile.heartRate * year);
+    breathSeries.push(perYearMinutes * profile.breathRate * year);
+  }
+
+  drawLineChart(el.heartChart, heartSeries, "#59e8ff");
+  drawLineChart(el.breathChart, breathSeries, "#4aa4ff");
+}
+
+function render() {
+  const stats = computeStats();
+  if (!stats) {
+    el.liveClock.textContent = "Введите данные профиля";
+    return;
+  }
+  updateDashboard(stats);
+  updateProgress(stats);
+  updateBio(stats);
+}
+
+function setTabs() {
+  el.tabButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      el.tabButtons.forEach((b) => b.classList.remove("active"));
+      el.tabPanels.forEach((p) => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
+}
+
+el.profileForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  saveProfile();
+  render();
+});
+
+el.scenarioYears.addEventListener("change", render);
+
+fillCountryOptions();
+loadProfile();
+setTabs();
+render();
+setInterval(render, 1000);
+
+</script>
+  </body>
+</html>
