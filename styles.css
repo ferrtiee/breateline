@@ -1,0 +1,264 @@
+:root {
+  color-scheme: dark;
+  --bg: #050608;
+  --card: #0d1118;
+  --card-border: #1c2433;
+  --text: #ecf1ff;
+  --muted: #8d97ad;
+  --line: #6ce6ff;
+  --line-soft: rgba(108, 230, 255, 0.35);
+  --heart: #b58dff;
+  --breath: #63ffc8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+  background: radial-gradient(circle at top, #0a1222 0%, var(--bg) 50%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app {
+  width: min(1080px, 92vw);
+  margin: 0 auto;
+  padding: 2.2rem 0 2.8rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+
+.kicker {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--line);
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+h1 {
+  margin: 0.35rem 0 0.5rem;
+  font-size: clamp(1.8rem, 4.6vw, 3rem);
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 1.35rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
+}
+
+.setup-card h2,
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  font-weight: 550;
+}
+
+.muted {
+  margin-top: 0;
+  color: var(--muted);
+}
+
+.setup-form label {
+  display: grid;
+  gap: 0.45rem;
+  color: #cfd8eb;
+  font-size: 0.92rem;
+}
+
+.setup-form input {
+  width: 100%;
+  background: #0b0f17;
+  border: 1px solid #263147;
+  color: var(--text);
+  border-radius: 12px;
+  padding: 0.72rem 0.78rem;
+  font-size: 0.95rem;
+}
+
+.setup-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.inline-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.scenario-buttons {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.scenario-btn {
+  flex: 1;
+  border: 1px solid #273653;
+  background: #0b121f;
+  color: #c0cadf;
+  padding: 0.56rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.scenario-btn.active {
+  border-color: var(--line);
+  color: #ecfaff;
+  box-shadow: 0 0 18px var(--line-soft);
+}
+
+.primary-btn,
+.ghost-btn {
+  border: none;
+  border-radius: 12px;
+  padding: 0.72rem 1rem;
+  cursor: pointer;
+}
+
+.primary-btn {
+  background: linear-gradient(90deg, #5ecbff, #70f7d0);
+  color: #031a22;
+  font-weight: 700;
+}
+
+.ghost-btn {
+  background: transparent;
+  color: #b5c5df;
+  border: 1px solid #304364;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.big-counter {
+  font-size: clamp(1.8rem, 7vw, 4rem);
+  margin: 1.2rem 0;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  color: #f0f8ff;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.metric-item {
+  border: 1px solid #243149;
+  border-radius: 14px;
+  padding: 0.7rem;
+  background: rgba(9, 14, 24, 0.65);
+}
+
+.metric-label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.metric-value {
+  margin: 0.2rem 0 0;
+  font-size: clamp(1rem, 4.5vw, 1.45rem);
+  font-weight: 600;
+}
+
+.life-progress {
+  margin-top: 1rem;
+}
+
+.progress-head {
+  display: flex;
+  justify-content: space-between;
+  color: #c5d3eb;
+  font-size: 0.92rem;
+}
+
+.progress-track {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: #172033;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #56b2ff, #7bffe4);
+  box-shadow: 0 0 14px rgba(123, 255, 228, 0.65);
+  transition: width 0.6s ease;
+}
+
+.chart-wrap {
+  border: 1px solid #243149;
+  border-radius: 14px;
+  padding: 0.8rem;
+  background: #070d19;
+}
+
+canvas {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.legend {
+  margin-top: 0.55rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: #bcc7df;
+  font-size: 0.9rem;
+}
+
+.dot {
+  display: inline-block;
+  width: 0.72rem;
+  height: 0.72rem;
+  border-radius: 50%;
+  margin-right: 0.34rem;
+}
+
+.dot.heart { background: var(--heart); }
+.dot.breath { background: var(--breath); }
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .inline-fields,
+  .metric-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app {
+    padding-top: 1.4rem;
+  }
+
+  .card {
+    border-radius: 16px;
+    padding: 1rem;
+  }
+}

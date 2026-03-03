@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Breatheline — Watch your life move</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="hero">
+        <p class="kicker">Breatheline</p>
+        <h1>Watch your life move.</h1>
+        <p class="subtitle">Спокойный взгляд на ритм времени, сердца и дыхания.</p>
+      </header>
+
+      <section id="setupCard" class="card setup-card">
+        <h2>Настройте ваш профиль</h2>
+        <p class="muted">Данные сохраняются только в этом браузере (offline).</p>
+        <form id="setupForm" class="setup-form" novalidate>
+          <label>
+            Дата рождения
+            <input type="date" name="birthDate" required />
+          </label>
+
+          <div class="inline-fields">
+            <label>
+              Пол (опционально)
+              <input type="text" name="gender" placeholder="например: female" />
+            </label>
+            <label>
+              Страна
+              <input type="text" name="country" placeholder="например: Russia" required />
+            </label>
+          </div>
+
+          <div class="inline-fields">
+            <label>
+              Средний пульс (уд/мин)
+              <input type="number" name="heartRate" min="30" max="220" value="70" required />
+            </label>
+            <label>
+              Частота дыхания (вдохов/мин)
+              <input type="number" name="breathingRate" min="5" max="50" value="16" required />
+            </label>
+          </div>
+
+          <div class="inline-fields">
+            <label>
+              Сценарий продолжительности жизни (лет)
+              <div class="scenario-buttons" role="radiogroup" aria-label="Сценарий продолжительности жизни">
+                <button type="button" data-years="80" class="scenario-btn">80</button>
+                <button type="button" data-years="90" class="scenario-btn active">90</button>
+                <button type="button" data-years="100" class="scenario-btn">100</button>
+              </div>
+              <input type="hidden" name="lifeExpectancyYears" value="90" />
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="primary-btn">Сохранить и открыть Dashboard</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="dashboard" class="hidden">
+        <article class="card">
+          <div class="section-head">
+            <h2>Life Dashboard</h2>
+            <button id="editProfileBtn" class="ghost-btn" type="button">Изменить профиль</button>
+          </div>
+
+          <div class="big-counter" id="liveDuration">0д 0ч 0м 0с</div>
+
+          <div class="metric-grid">
+            <div class="metric-item">
+              <p class="metric-label">Прожитые дни</p>
+              <p class="metric-value" id="daysLived">0</p>
+            </div>
+            <div class="metric-item">
+              <p class="metric-label">Прожитые часы</p>
+              <p class="metric-value" id="hoursLived">0</p>
+            </div>
+            <div class="metric-item">
+              <p class="metric-label">Удары сердца</p>
+              <p class="metric-value" id="heartbeats">0</p>
+            </div>
+            <div class="metric-item">
+              <p class="metric-label">Вдохи</p>
+              <p class="metric-value" id="breaths">0</p>
+            </div>
+          </div>
+
+          <div class="life-progress">
+            <div class="progress-head">
+              <p>Процент прожитой жизни</p>
+              <p id="lifePercent">0%</p>
+            </div>
+            <div class="progress-track">
+              <div id="progressBar" class="progress-bar"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <h2>Biological Metrics</h2>
+          <p class="muted">Линейное накопление по мере жизни (без внешних библиотек).</p>
+
+          <div class="chart-wrap">
+            <canvas id="bioChart" width="1200" height="420" aria-label="График накопления" role="img"></canvas>
+          </div>
+
+          <div class="legend">
+            <span><i class="dot heart"></i> Удары сердца</span>
+            <span><i class="dot breath"></i> Вдохи</span>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
